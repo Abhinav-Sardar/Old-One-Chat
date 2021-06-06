@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react'
 import qs from 'qs' ; 
 import {Link} from 'react-router-dom'
-import styles from './MainPage.module.css'
+import styles from './MainPage.module.css' ; 
 const MainPage = () => {
     return (
         <div className = {styles.page}>

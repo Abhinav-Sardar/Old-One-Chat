@@ -1,4 +1,5 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap');
 :root{
     --accent-color:rgb(187, 20, 202);
 
@@ -14,7 +15,8 @@
 .page {
     height:100vh; 
     width:100vw ; 
-    background:linear-gradient(45deg , rgb(190, 63, 190) , white) no-repeat ; 
+    background:linear-gradient(45deg , rgb(190, 63, 190) , white) ; 
+    overflow: hidden;
 }
 
 i {
@@ -24,10 +26,12 @@ i {
 }
 h2.logo {
     font-size:12vmin ; 
-    color:var(--accent-color)
+    color:var(--accent-color) ; 
+    font-family:"Poppins" , sans-serif;
 }
 .content {
     color:var(--accent-color) ; 
+    font-family: 'Poppins', sans-serif;
     font-size:5vmin ; 
     padding:5vh 0 ; 
 }
@@ -40,6 +44,7 @@ h2.logo {
     border-radius:10px ; 
     font-size:3.5vmin ; 
     transition: 400ms ease-in;
+    font-family: 'Montserrat', sans-serif;
 }
 .btn:hover{
     color:var(--accent-color) ; 

@@ -1,0 +1,39 @@
+:root {
+    --accent-color:rgb(187, 20, 202);
+    --select-color:rgb(54, 54, 172) ; 
+    --form-bg:rgb(5, 16, 110) ; 
+}
+* {
+    padding:0 ; 
+    margin: 0;
+}
+*::selection {
+    background-color:var(--select-color) ;
+}
+.page {
+    height:100vh ; 
+    width:100vw ; 
+    display:flex ; 
+    justify-content: center;
+    align-items: center;
+    flex-direction:column ; 
+    background-color:var(--accent-color) ;
+}
+form {
+    border:1px solid black ; 
+    background-color: var(--form-bg);
+}
+.wrapper {
+    margin:2.5vh 1vw ; 
+
+}
+label {
+    margin:1vh 0 ; 
+    font-size:5vmin ; 
+    color:white ; 
+}
+input {
+    width:100% ; 
+    padding:2vh 0 ; 
+    font-size:100% ; 
+}
