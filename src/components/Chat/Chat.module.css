@@ -4,6 +4,7 @@
 :root {
     --accent-color:rgb(187, 20, 202);
     --select-color:rgb(54, 54, 172) ;
+    --leave-btn-color:red ; 
 }
 * {
     padding:0  ; 
@@ -68,14 +69,29 @@ big {
     border-bottom: 1px solid white;
 }
 .chat {
-    border:1px solid black ;
     width:92vw ; 
     display: flex;
     align-items: center;
     flex-direction: column;
 }
 .room__info {
+    border:1px solid black ;
     width:100%; 
     display:flex ; 
     justify-content: space-between;
+    /* flex:2;  */
+    height:10vh ; 
+    align-items: center;
+}
+.room__name {
+    margin-left: 1vw ; ;
+}
+.room__info > button.leave {
+    /* color: */
+}
+.main__chat {
+    border:1px solid black ;
+    height:75vh ; 
+    width:100% ; 
+    overflow-y: auto;
 }
