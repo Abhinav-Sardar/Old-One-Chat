@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap');
+
+:root {
+    --accent-color:rgb(187, 20, 202);
+    --select-color:rgb(54, 54, 172) ;
+}
+* {
+    padding:0  ; 
+    margin: 0;
+}
+*::selection {
+    background-color: var(--select-color);
+}
+.page {
+    height:100vh ; 
+    width:100vw ; 
+    display:flex ;
+    justify-content: flex-start;
+    align-items: flex-start;
+    overflow:hidden ; 
+}
+.info {
+    height:100vh ; 
+    width:18vw ; 
+    display:flex ; 
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+    color:white;
+    background-color: var(--accent-color);
+    overflow-y: auto;
+}
+.info > .logo {
+    font-size:5vmin ; 
+    font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif ; 
+    font-weight:600;
+    margin-top:3vh ;
+}
+big {
+    font-size:4vmin ; 
+    font-family: 'Quicksand', sans-serif;
+    margin:1vh 0 ;
+}
+.users {
+    margin-top:6vmin;
+    width:100% ; 
+    display:flex ; 
+    flex-direction: column;
+    align-items: center;
+}
+.user {
+    border-top:1px solid white ; 
+    list-style: none;
+    width:100% ; 
+    text-align: center;
+    padding:2.5vh 0 ; 
+    font-size:3.5vmin ;
+    transition:400ms ease-out ; 
+    font-family: 'Raleway', sans-serif;
+}
+.user:hover {
+    color:var(--accent-color) ; 
+    background-color: white;
+}
+.users__wrapper {
+    width:100% ; 
+    border-bottom: 1px solid white;
+}
+.chat {
+    border:1px solid black ;
+    width:92vw ; 
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.room__info {
+    width:100%; 
+    display:flex ; 
+    justify-content: space-between;
+}

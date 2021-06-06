@@ -1,10 +1,10 @@
 import React from 'react'
 import styles from './NotfoundPage.module.css' ; 
-const NotfoundPage = () => {
+const NotfoundPage = ({message}) => {
     return (
         <div className={styles.page}>
-            <marquee behavior="" direction="right">
-                <h1 className={styles.message}>404! We couldnt find the page you were looking for.</h1>
+            <marquee behavior="scroll" direction="right">
+                <h1 className={styles.message}>{message}</h1>
             </marquee>
         </div>
     )
