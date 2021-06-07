@@ -15,10 +15,11 @@ const CreateRoom = () => {
     }
     return (
         <div className = {styles.page}>
-            <form onSubmit = {handleSubmit}>
+            <form onSubmit = {handleSubmit} className = {styles.form}>
             <div className={styles.wrapper}>
                 <label htmlFor="">Name</label>
                 <input type="text"
+                className = {styles.input}
                 name = "name"
                 required  placeholder = "Your name"
                 value = {name}
@@ -29,6 +30,7 @@ const CreateRoom = () => {
                 <div className={styles.wrapper}>
                 <label htmlFor="room">Room name</label>
                 <input type="text"
+                className = {styles.input}
                 name = "room"
                 required  placeholder = "Your room name"
                 value = {room}
