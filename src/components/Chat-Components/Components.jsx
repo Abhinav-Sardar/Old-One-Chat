@@ -1,12 +1,14 @@
 import React, { useContext, useEffect, useState} from 'react'
-import {messagesContext , nameContext , roomContext} from '../Chat/Chat'
+import {messagesContext , nameContext , roomContext , peopleContext} from '../Chat/Chat'
 import {Link} from 'react-router-dom' ; 
+import io from 'socket.io-client' ; 
 
 
 export const Sidebar = ({styles}) => {
-    const messages = useContext(messagesContext) ; 
-const name = useContext(nameContext) ; 
-const room = useContext(roomContext) ;
+//     const messages = useContext(messagesContext) ; 
+// // const name = useContext(nameContext) ; 
+// // const room = useContext(roomContext) ;
+    const [people , setPeople] = useContext(peopleContext) ; 
     return (
             <div className={styles.info}>
                         <div className={styles.logo}>
@@ -16,12 +18,12 @@ const room = useContext(roomContext) ;
                             <big>
                                 Users in chat
                             </big>
-                            <div className={styles.users__wrapper}>
-                            <li className={styles.user}>Bhaiya</li>
-                            <li className={styles.user}>Abhinav</li>
-                            <li className={styles.user}>Shanky</li>
-                            <li className={styles.user}>Bunny</li>
-                            </div>
+                        </div>
+                        <div className = {styles.users__wrapper}>
+
+                        {people.length > 0 && people.map(person => {
+                            return <li className = {styles.user}>{person}</li>
+                        })}
                         </div>
                     </div>
     )
