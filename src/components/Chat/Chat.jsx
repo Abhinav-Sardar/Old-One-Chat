@@ -1,75 +1,66 @@
-import React, { useEffect , useState , createContext } from 'react'
-// import io from 'socket.io-client' ;
-import QueryString from 'qs'; 
-import NotfoundPage from '../NotfoundPage/NotfoundPage' ; 
+import React , {useEffect , useState , useContext , useRef} from 'react'
+import qs from 'qs' ; 
+import NotfoundPage from '../NotfoundPage/NotfoundPage'
 import styles from './Chat.module.css' ; 
-import {Sidebar , MainChat} from '../Chat-Components/Components'
-import io from 'socket.io-client' ; 
-export const nameContext = createContext() ;
-export const roomContext = createContext() ;
-export const messagesContext = createContext() ;
-export const peopleContext = createContext() ;
 const Chat = () => {
+    const [name , setName] = useState('') ; 
     const [isValidURL , setIsValidURL] = useState(false) ;
-    const [name , setName] = useState('') ;
-    const [room , setRoom] = useState('') ;
-    const [messages , setMessages] = useState([]) ; 
-    const [people , setPeople] = useState([]); 
-    let socket ; 
-    
-
-
-    const RealChat = () => { 
-        
-        return (
-            <peopleContext.Provider value= {[people , setPeople]}>
-                            <nameContext.Provider value = {name}>
-                <roomContext.Provider value = {room}>
-                    <messagesContext.Provider value = {[messages , setMessages]}>
-                        <React.Fragment>
-                    <div className = {styles.page}>
-                        <Sidebar styles = {styles}/>
-                        <MainChat styles = {styles}/>
-                    </div>
-                </React.Fragment>
-                    </messagesContext.Provider>
-                </roomContext.Provider>
-            </nameContext.Provider>
-            </peopleContext.Provider>
-        )
-    }
-    
+    const [people , setPeople] = useState([]) ; 
+    const [roomName , setRoom] = useState('') ; 
     useEffect(() => {
-        const {name , room} = QueryString.parse(window.location.href, {
-            ignoreQueryPrefix:true ,
+        let {name , room} = qs.parse(window.location.href , {
+            ignoreQueryPrefix:true , 
         }) ; 
-        if(!name || !room) {
+        if(!name || !room || name === "" || room === ""){
             setIsValidURL(false) ; 
         }
         else {
-            setName(name) ; 
-            setRoom(room) ; 
             setIsValidURL(true) ; 
-            document.title = `Room - ${room}` ; 
-            socket =  io('http://localhost:1919/') ; 
-            socket.emit('new' , [name , room]) ; 
+            setRoom(room) ; 
         }
     } , []) ; 
+
     return (
         <React.Fragment>
-            {
-                isValidURL ?
-                <RealChat/>
-                :
-                <NotfoundPage message = "Please join or create a room!"/>
-            }
+            {isValidURL === false ? 
+        <NotfoundPage message = "Please join or create a room!"/>
+        :
+        <div className={styles.page}>
+            <div className={styles.info}>
+                <div className={styles.logo}>
+                    One Chat
+                </div>
+                <big>
+                    Users in chat
+                </big>
+                <div className={styles.users__wrapper}>
+                    {people.length > 0 && people.map(person => (<li className = {styles.user}>{person}</li>))}
+                </div>
+            </div>
+            <div className={styles.chat}>
+                <div className={styles.room__info}>
+                    <big className={styles.room__name}>Room - {roomName}</big>
+                    <button className = {styles.leave} onClick = {() => window.location.assign('/')}>
+                        Leave Room
+                    </button>
+                </div>
+                <div className={styles.main__chat}>
+                </div>
+                <div className={styles.message__box}>
+                    <form className={styles.tired}>
+                        <input type="text" className={styles.message__input} />
+                        <button className={styles.send__msg} type = "submit"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+            
+        </div>  
+        }
         </React.Fragment>
     )
 
+
+
 }
-
-
-
-
 
 export default Chat

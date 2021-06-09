@@ -86,7 +86,8 @@ big {
 .room__name {
     margin-left: 1vw ; ;
 }
-button.leave {
+
+button.leave{
     /* color: */
     height:90% ; 
     margin-right: 1vw;
@@ -99,9 +100,6 @@ button.leave {
     transition:400ms ease ; 
     border:1px solid var(--leave-btn-color);
     margin-top: 0.5vh;
-}
-a {
-    height:100% ; 
 }
 button.leave:hover {
     color:var(--leave-btn-color) ; 
@@ -196,7 +194,7 @@ button.leave:hover {
     justify-content: center;
     align-items: center;
 }
-.icon__container > i {
+ .send__msg > i {
     font-size:1rem ; 
     color:white ; 
     margin:0 ; 
