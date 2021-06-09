@@ -120,25 +120,25 @@ button.leave:hover {
 .OutgoingMessage{
     border:1px solid black ; 
     /* width:100% ;  */
-    max-width:40% ; 
-    padding:3vmin ; 
     font-size:3.4vmin ; 
     color:white ; 
-    background-color: var(--accent-color) ; 
-    margin: 1.5vh 0 ; 
-    margin-left:1vh ; 
+    background-color: var(--accent-color) ;  
+    max-width:40% ; 
+    padding:3vmin ;
+    margin:1vh 0 ; 
+    margin-left:1vh ;  
 }
 .IncomingMessage{
 
     border:1px solid black ; 
-    width:100% ; 
     max-width:40% ; 
-    padding:3vmin ; 
+    padding:2vmin 0; 
     font-size:3.4vmin ; 
     color:black ; 
     background-color: whitesmoke ; 
     margin: 1.5vh 0 ; 
     margin-left:56%;  
+    word-wrap: break-word;
 }
 .tooltip {
     /* border:1px solid black ;  */
