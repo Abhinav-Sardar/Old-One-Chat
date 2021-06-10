@@ -11,6 +11,7 @@ const Chat = () => {
     const [roomName , setRoom] = useState('') ; 
     const [messages, setMessages] = useState([]) ;
     const inputRef = useRef() ; 
+    let msgRef = useRef(); 
     useEffect(() => {
         console.log(messages) ; 
     })
@@ -31,15 +32,28 @@ const Chat = () => {
             socket.on('foreign-message' , msg =>{
                 setMessages(prev => [...prev , {type:"msg" , className:"IncomingMessage" , children:msg}]) ; 
             }) ; 
-            socket.on('new-user', ppl => setPeople(ppl)) ;
+            socket.on('new-user', ([user , ppl]) => {
+                setPeople(ppl) ; 
+                setMessages(prevMsgs => [...messages , {
+                    bg:"lime" , 
+                    type:"tooltip" , 
+                    className:"tooltip" , 
+                    children:`${user} has joined the chat.`
+                }])
+            }) ;
+            socket.on('user-left' , ([name , ppl]) => {
+                setPeople(ppl) ; 
+                setMessages(prevMsgs => {
+                    return [...prevMsgs , {type:"tooltip" , bg : "red" , children:`${name} has left the chat` }]
+                })
+            })
         }
     } , []) ; 
-
 
     return (
         <React.Fragment>
             {isValidURL === false ? 
-        <NotfoundPage message = "Please join or create a room!"/>
+        ""
         :
         <div className={styles.page}>
             <div className={styles.info}>
@@ -63,9 +77,9 @@ const Chat = () => {
                         Leave Room
                     </button>
                 </div>
-                <div className={styles.main__chat}>
+                <div className={styles.main__chat} ref = {msgRef}>
                     {messages.length > 0 && messages.map(msg => {
-                        return <Message styles = {styles} className = {msg.className} type = {msg.type}>
+                        return <Message styles = {styles} bg = {msg.bg} className = {msg.className} type = {msg.type}>
                             {msg.children}
                         </Message>
                     })}

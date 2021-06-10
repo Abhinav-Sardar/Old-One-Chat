@@ -127,18 +127,20 @@ button.leave:hover {
     padding:3vmin ;
     margin:1vh 0 ; 
     margin-left:1vh ;  
+    overflow-wrap: break-word;
 }
 .IncomingMessage{
 
     border:1px solid black ; 
     max-width:40% ; 
-    padding:2vmin 0; 
+    padding:2vmin 1vmin1; 
     font-size:3.4vmin ; 
     color:black ; 
     background-color: whitesmoke ; 
     margin: 1.5vh 0 ; 
-    margin-left:56%;  
-    word-wrap: break-word;
+    margin-left:70%;
+    /* text-overflow: ellipsis; */
+    overflow-wrap: break-word;
 }
 .tooltip {
     /* border:1px solid black ;  */
@@ -146,7 +148,6 @@ button.leave:hover {
     padding:2vmin 3vmin ; 
     font-size:4vmin ; 
     color:white ; 
-    background-color: var(--accent-color) ; 
     margin: 1.5vh 0 ; 
     margin-left:1vh ;
     text-align: center;
