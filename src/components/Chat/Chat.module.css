@@ -4,7 +4,7 @@
 :root {
     --accent-color:rgb(187, 20, 202);
     --select-color:rgb(54, 54, 172) ;
-    --leave-btn-color:red ; 
+    --leave-btn-color:red ;
 }
 * {
     padding:0  ; 
@@ -114,33 +114,27 @@ button.leave:hover {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    align-items: flex-start;
+    align-items: center;
+    
 }
 
 .OutgoingMessage{
     border:1px solid black ; 
-    /* width:100% ;  */
-    font-size:3.4vmin ; 
+    width:95% ; 
+    text-align: left;
     color:white ; 
-    background-color: var(--accent-color) ;  
-    max-width:40% ; 
-    padding:3vmin ;
-    margin:1vh 0 ; 
-    margin-left:1vh ;  
     overflow-wrap: break-word;
+    border-radius: 5px ; ;
+    background-color: var(--accent-color);
 }
-.IncomingMessage{
 
+.IncomingMessage{
     border:1px solid black ; 
-    max-width:40% ; 
-    padding:2vmin 1vmin1; 
-    font-size:3.4vmin ; 
-    color:black ; 
-    background-color: whitesmoke ; 
-    margin: 1.5vh 0 ; 
-    margin-left:70%;
-    /* text-overflow: ellipsis; */
+    width:95% ; 
+    text-align: right;
     overflow-wrap: break-word;
+    border-radius: 5px ; ;
+    color:black ; 
 }
 .tooltip {
     /* border:1px solid black ;  */
@@ -171,6 +165,7 @@ button.leave:hover {
     margin-top: 203;
     background-color: blue;
     border:0 ;  
+
 }
 .send__msg:active{
     transform:scale(0.9)
@@ -199,4 +194,26 @@ button.leave:hover {
     font-size:1rem ; 
     color:white ; 
     margin:0 ; 
+    animation: send_animation ease-in-out 2s infinite;
+}
+
+@keyframes appear {
+    0% {
+        opacity: 0;
+    }
+    50%{
+        opacity:0.5 ; 
+    }
+    100% {
+        opacity:1 ; 
+    }
+}
+
+@keyframes send_animation {
+    50%{
+        transform: scale(1.5);
+    }
+    100% {
+        transform:scale(1) ; 
+    }
 }

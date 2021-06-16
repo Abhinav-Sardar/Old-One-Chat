@@ -3,7 +3,7 @@ import qs from 'qs' ;
 import NotfoundPage from '../NotfoundPage/NotfoundPage'
 import styles from './Chat.module.css' ; 
 import io from 'socket.io-client' ; 
-let socket = io('http://localhost:1919/') ; 
+let socket = io('https://whispering-atoll-47602.herokuapp.com/') ; 
 const Chat = () => {
     const [name , setName] = useState('') ; 
     const [isValidURL , setIsValidURL] = useState(false) ;
@@ -12,9 +12,7 @@ const Chat = () => {
     const [messages, setMessages] = useState([]) ;
     const inputRef = useRef() ; 
     let msgRef = useRef(); 
-    useEffect(() => {
-        console.log(messages) ; 
-    })
+
     useEffect(() => {
         let {name , room} = qs.parse(window.location.href , {
             ignoreQueryPrefix:true , 
@@ -34,7 +32,7 @@ const Chat = () => {
             }) ; 
             socket.on('new-user', ([user , ppl]) => {
                 setPeople(ppl) ; 
-                setMessages(prevMsgs => [...messages , {
+                setMessages(prevMsgs => [...prevMsgs , {
                     bg:"lime" , 
                     type:"tooltip" , 
                     className:"tooltip" , 
@@ -49,7 +47,6 @@ const Chat = () => {
             })
         }
     } , []) ; 
-
     return (
         <React.Fragment>
             {isValidURL === false ? 
@@ -72,14 +69,14 @@ const Chat = () => {
                     <big className={styles.room__name}>Room - {roomName}</big>
                     <button className = {styles.leave} onClick = {() => {
                         window.location.assign('/') ; 
-                        socket.disconnect() ; 
+                        socket.emit('disconnect')
                     }}>
                         Leave Room
                     </button>
                 </div>
                 <div className={styles.main__chat} ref = {msgRef}>
                     {messages.length > 0 && messages.map(msg => {
-                        return <Message styles = {styles} bg = {msg.bg} className = {msg.className} type = {msg.type}>
+                        return <Message styles = {styles} bg = {msg.bg} key = {Math.random()*Math.random()} className = {msg.className} type = {msg.type}>
                             {msg.children}
                         </Message>
                     })}
@@ -87,15 +84,20 @@ const Chat = () => {
                 <div className={styles.message__box}>
                     <form className={styles.tired} 
                     onSubmit = {(e) => { 
-                       e.preventDefault() ; 
-                       let value = inputRef.current.value ; 
-                       inputRef.current.value = '' ; 
-                       socket.emit('message' , [roomName , value]) ; 
-                       setMessages([...messages , {
-                           type:"msg" , 
-                           className : "OutgoingMessage" ,
-                           children:value,
-                       }])
+                        e.preventDefault() ;
+                        if(inputRef.current.value === '' || inputRef.current.value.trim() === ''){
+                            
+                        }
+                        else { 
+                            let value = inputRef.current.value ; 
+                            inputRef.current.value = '' ; 
+                            socket.emit('message' , [roomName , value]) ; 
+                            setMessages([...messages , {
+                                type:"msg" , 
+                                className : "OutgoingMessage" ,
+                                children:value,
+                            }])
+                        }
 
                     }}
                     >
