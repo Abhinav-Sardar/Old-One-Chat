@@ -3,6 +3,7 @@ import qs from 'qs' ;
 import NotfoundPage from '../NotfoundPage/NotfoundPage'
 import styles from './Chat.module.css' ; 
 import io from 'socket.io-client' ; 
+import ScrollToBottom from 'react-scroll-to-bottom'
 let socket = io('https://whispering-atoll-47602.herokuapp.com/') ; 
 const Chat = () => {
     const [name , setName] = useState('') ; 
@@ -61,7 +62,7 @@ const Chat = () => {
                     Users in chat
                 </big>
                 <div className={styles.users__wrapper}>
-                    {people.length > 0 && people.map(person => (<li className = {styles.user}>{person}</li>))}
+                    {people.length > 0 && people.map(person => (<li key = {Math.random() * Math.random() - Math.random()} className = {styles.user}>{person}</li>))}
                 </div>
             </div>
             <div className={styles.chat}>
@@ -69,18 +70,20 @@ const Chat = () => {
                     <big className={styles.room__name}>Room - {roomName}</big>
                     <button className = {styles.leave} onClick = {() => {
                         window.location.assign('/') ; 
-                        socket.emit('disconnect')
+                        socket.emit('disconnect') ; 
                     }}>
                         Leave Room
                     </button>
                 </div>
-                <div className={styles.main__chat} ref = {msgRef}>
+                    <ScrollToBottom className = {styles.main__chat}>
+                {/* <div className={styles.main__chat} ref = {msgRef}> */}
                     {messages.length > 0 && messages.map(msg => {
                         return <Message styles = {styles} bg = {msg.bg} key = {Math.random()*Math.random()} className = {msg.className} type = {msg.type}>
                             {msg.children}
                         </Message>
                     })}
-                </div>
+                {/* </div> */}
+                    </ScrollToBottom>
                 <div className={styles.message__box}>
                     <form className={styles.tired} 
                     onSubmit = {(e) => { 
@@ -96,7 +99,7 @@ const Chat = () => {
                                 type:"msg" , 
                                 className : "OutgoingMessage" ,
                                 children:value,
-                            }])
+                            }]) ; 
                         }
 
                     }}
@@ -123,8 +126,11 @@ function Message({type , bg , className , styles , children}) {
         return <div className = {styles[className]}>{children}</div>
     }
     else {
-        return <div className = {styles.tooltip} style = {{backgroundColor:bg}}>
+        return <div>
+            <div className = {styles.tooltip} style = {{backgroundColor:bg}}>
             {children}
+        </div>
+        <br />
         </div>
     }
 }

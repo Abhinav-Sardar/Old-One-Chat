@@ -109,12 +109,12 @@ button.leave:hover {
     border:1px solid black ;
     height:72vh ; 
     width:100% ; 
-    overflow-x:hidden ; 
     overflow-y: auto;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+    overflow-x:hidden ; 
     
 }
 
@@ -126,6 +126,7 @@ button.leave:hover {
     overflow-wrap: break-word;
     border-radius: 5px ; ;
     background-color: var(--accent-color);
+    margin-left:0.5%;
 }
 
 .IncomingMessage{
@@ -135,15 +136,17 @@ button.leave:hover {
     overflow-wrap: break-word;
     border-radius: 5px ; ;
     color:black ; 
+    margin-left:4%;
 }
 .tooltip {
     /* border:1px solid black ;  */
     width:95.5% ; 
-    padding:2vmin 3vmin ; 
+    padding:1.1vmin 0vmin ; 
     font-size:4vmin ; 
     color:white ; 
-    margin: 1.5vh 0 ; 
-    margin-left:1vh ;
+    margin:auto ; 
+    /* margin-left: auto;  */
+    /* margin-left:1vh ; */
     text-align: center;
     border-radius: 15px;
 }
@@ -216,4 +219,7 @@ button.leave:hover {
     100% {
         transform:scale(1) ; 
     }
+}
+.react-scroll-to-bottom--css {
+    background-color: black;
 }
