@@ -43,7 +43,7 @@ const Chat = () => {
             socket.on('user-left' , ([name , ppl]) => {
                 setPeople(ppl) ; 
                 setMessages(prevMsgs => {
-                    return [...prevMsgs , {type:"tooltip" , bg : "red" , children:`${name} has left the chat` }]
+                    return [...prevMsgs , {type:"tooltip" , bg : "red" , children:`${name} has left the chat` }] ; 
                 })
             })
         }
@@ -130,7 +130,6 @@ function Message({type , bg , className , styles , children}) {
             <div className = {styles.tooltip} style = {{backgroundColor:bg}}>
             {children}
         </div>
-        <br />
         </div>
     }
 }
