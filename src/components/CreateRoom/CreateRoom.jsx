@@ -1,16 +1,13 @@
-import React, { createContext, useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import styles from './CreateRoom.module.css' ; 
 import {Link} from 'react-router-dom'
 const CreateRoom = () => {
     document.title = "Create A Room"
     const [name , setName] = useState('') ; 
     const [room , setRoom] = useState('') ; 
-    const obj = {name , room} ; 
     const handleSubmit = (e) => {
         e.preventDefault() ; 
-        if(!name.trim() || !room.trim()){
-            alert('Invalid user or room name!')
-        }
+        alert('Invalid user or room name!') ; 
     }
     return (
         <div className = {styles.page}>
@@ -18,6 +15,7 @@ const CreateRoom = () => {
             <div className={styles.wrapper}>
                 <label htmlFor="">Name</label>
                 <input type="text"
+                 autoComplete = {"off"}
                 className = {styles.input}
                 name = "name"
                 required  placeholder = "Your name"
@@ -29,6 +27,7 @@ const CreateRoom = () => {
                 <div className={styles.wrapper}>
                 <label htmlFor="room">Room name</label>
                 <input type="text"
+                 autoComplete = {"off"}
                 className = {styles.input}
                 name = "room"
                 required  placeholder = "Your room name"
@@ -38,9 +37,9 @@ const CreateRoom = () => {
                 </div>
                 <center>
                 {
-                    name.trim() && room.trim() ? 
+                    name.trim() && room.trim() && room.length<50  ?
                     <Link to = {`/chat?&name=${name}&room=${room}`}><button className = {styles.btn}>Create Room</button></Link>
-                    :<button className = {styles.btn}>Create Room</button>
+                    :<button type = "submit" className = {styles.btn}>Create Room</button>
                 }
                 </center>
             </form>

@@ -1,10 +1,9 @@
 import React , {useEffect , useState , useContext , useRef} from 'react'
 import qs from 'qs' ; 
-import NotfoundPage from '../NotfoundPage/NotfoundPage'
 import styles from './Chat.module.css' ; 
 import io from 'socket.io-client' ; 
 import ScrollToBottom from 'react-scroll-to-bottom'
-let socket = io('https://whispering-atoll-47602.herokuapp.com/') ; 
+let socket = io('localhost:1919') ; 
 const Chat = () => {
     const [name , setName] = useState('') ; 
     const [isValidURL , setIsValidURL] = useState(false) ;
@@ -12,24 +11,27 @@ const Chat = () => {
     const [roomName , setRoom] = useState('') ; 
     const [messages, setMessages] = useState([]) ;
     const inputRef = useRef() ; 
-    let msgRef = useRef(); 
+    useEffect(() => {
+        console.log('I')
+        //eslint-disable-next-line
+    } , [location.href])
 
     useEffect(() => {
-        let {name , room} = qs.parse(window.location.href , {
+        let { name , room} = qs.parse(window.location.href , {
             ignoreQueryPrefix:true , 
         }) ; 
         if(!name || !room || name === "" || room === ""){
             setIsValidURL(false) ; 
         }
         else {
+            setName(name) ; 
             setIsValidURL(true) ; 
             setRoom(room) ;
             document.title = `Room - ${room}`
-            console.log(socket) ; 
             socket.emit('new' , [name , room]) ; 
             socket.on('room-info' , ppl => setPeople(ppl)) ; 
-            socket.on('foreign-message' , msg =>{
-                setMessages(prev => [...prev , {type:"msg" , className:"IncomingMessage" , children:msg}]) ; 
+            socket.on('foreign-message' , ([msg , author]) =>{
+                setMessages(prev => [...prev , {type:"msg" , className:"IncomingMessage" , children:msg , author:author}]) ; 
             }) ; 
             socket.on('new-user', ([user , ppl]) => {
                 setPeople(ppl) ; 
@@ -78,7 +80,7 @@ const Chat = () => {
                     <ScrollToBottom className = {styles.main__chat}>
                 {/* <div className={styles.main__chat} ref = {msgRef}> */}
                     {messages.length > 0 && messages.map(msg => {
-                        return <Message styles = {styles} bg = {msg.bg} key = {Math.random()*Math.random()} className = {msg.className} type = {msg.type}>
+                        return <Message styles = {styles} bg = {msg.bg} key = {Math.random()*Math.random()} className = {msg.className} type = {msg.type} author = {msg.author}>
                             {msg.children}
                         </Message>
                     })}
@@ -86,19 +88,24 @@ const Chat = () => {
                     </ScrollToBottom>
                 <div className={styles.message__box}>
                     <form className={styles.tired} 
+                   
                     onSubmit = {(e) => { 
                         e.preventDefault() ;
                         if(inputRef.current.value === '' || inputRef.current.value.trim() === ''){
                             
                         }
+                        else if(inputRef.current.value.length > 1000){
+                            alert('Message length too big!')
+                        }
                         else { 
                             let value = inputRef.current.value ; 
                             inputRef.current.value = '' ; 
-                            socket.emit('message' , [roomName , value]) ; 
+                            socket.emit('message' , [roomName , value , name]) ; 
                             setMessages([...messages , {
                                 type:"msg" , 
                                 className : "OutgoingMessage" ,
                                 children:value,
+                                author:name , 
                             }]) ; 
                         }
 
@@ -121,13 +128,24 @@ const Chat = () => {
 
 export default Chat
 
-function Message({type , bg , className , styles , children}) {
+function Message({type , bg , className , styles , children , author}) {
     if(type === 'msg'){
-        return <div className = {styles[className]}>{children}</div>
+        if(className === 'OutgoingMessage'){
+            return<div className = {styles.msg__wrapper}>
+                <div className={styles.name}>{"You"}</div>
+        <div className = {styles[className]}>{children}</div>
+            </div>
+    }
+    else {
+        return <div className = {styles['msg__wrapper']}>
+        <div className={styles.name__for}>{author}</div>
+    <div className = {styles[className]}>{children}</div>
+    </div>
+    }
     }
     else {
         return <div>
-            <div className = {styles.tooltip} style = {{backgroundColor:bg}}>
+        <div className = {styles.tooltip} style = {{backgroundColor:bg}}>
             {children}
         </div>
         </div>

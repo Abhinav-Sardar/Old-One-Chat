@@ -37,3 +37,19 @@ label {
     padding:2vh 0 ; 
     font-size:100% ; 
 }
+.btn {
+    padding:3vh 2vw ; 
+    font-size:140% ; 
+    border:0; 
+    background-color: yellow;
+    color:var(--form-bg) ; 
+    border-radius: 10px;
+    margin:1vh 0 ; 
+    border:1.5px solid yellow ; 
+    transition: 400ms ease-in-out;
+}
+.btn:hover {
+    color:yellow ; 
+    background-color: var(--form-bg);
+
+}

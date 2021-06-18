@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100&display=swap');
 
 :root {
     --accent-color:rgb(187, 20, 202);
@@ -23,7 +24,7 @@
 }
 .info {
     height:100vh ; 
-    width:18vw ; 
+    width:15vw ; 
     display:flex ; 
     flex-direction: column;
     /* justify-content: center; */
@@ -69,7 +70,7 @@ big {
     border-bottom: 1px solid white;
 }
 .chat {
-    width:92vw ; 
+    width:85vw ; 
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -120,26 +121,46 @@ button.leave:hover {
 
 .OutgoingMessage{
     border:1px solid black ; 
-    padding:1vh 0 ; 
-
+    max-width:80% ; 
+    font-size:1.3vw ; 
+    padding:2vh 1vw ; 
+    color:white ; 
+    background-color: var(--accent-color);
+    margin-left: 1%;
+    overflow-wrap: break-word;
+    font-family: 'Poppins', sans-serif;
+   
 }
 
 .IncomingMessage{
     border:1px solid black ; 
-    padding:1vh 0 ; 
+    max-width:80% ; 
+    font-size:1.6vw ; 
+    padding:2vh 1vw ; 
+    color:black; 
+    background-color:whitesmoke;
+    
+    margin-left: 16%;
+    text-align: right;
+    overflow-wrap: break-word;
+    font-family: 'Poppins', sans-serif;
+
 
 }
 .tooltip {
     text-align: center;
+    
     border-radius: 15px;
     width:95.5% ; 
     padding:2vmin 3vmin ; 
     font-size:4vmin ; 
     color:white ; 
-    margin: 1vh 0 ; 
+    margin: 2vh 0 ; 
+    /* width:0 ;  */
     margin-left:1vh ;
     text-align: center;
     border-radius: 15px;
+    
 }
 
 .message__input {
@@ -148,7 +169,7 @@ button.leave:hover {
     font-size:120%  ; 
 }
 .message__input:focus {
-    border:2px solid var(--accent-color) ; 
+    border:3px solid var(--accent-color) ; 
     box-shadow:none ; 
     outline:none ; 
 }
@@ -156,10 +177,10 @@ button.leave:hover {
     /* color:blue  ;  */
     /* height:40px ;  */
     width:8% ; 
-    height:40% ; 
-    margin-top: 203;
+    padding:2.5vh 0 ;  
     background-color: blue;
     border:0 ;  
+    margin:0 0.5vw ; 
 
 }
 .send__msg:active{
@@ -186,7 +207,7 @@ button.leave:hover {
     align-items: center;
 }
  .send__msg > i {
-    font-size:1rem ; 
+    font-size:150% ; 
     color:white ; 
     margin:0 ; 
     animation: send_animation ease-in-out 2s infinite;
@@ -206,12 +227,26 @@ button.leave:hover {
 
 @keyframes send_animation {
     50%{
-        transform: scale(1.5);
+        transform: scale(1.3);
     }
     100% {
         transform:scale(1) ; 
     }
 }
-.react-scroll-to-bottom--css {
-    background-color: black;
+.msg__wrapper {
+   margin:2vh 0 ;  
+}
+.name {
+    margin-left: 1%;
+    font-size:1.8vw ; 
+    color:rgb(46, 136, 209) ; 
+    font-weight:800 ; 
+}
+.name__for {
+    font-size:1.8vw ; 
+    color:rgb(46, 136, 209) ; 
+    font-weight:800 ; 
+    /* margin-left: 8%; */
+    text-align: right;
+    padding-right: 2%;
 }
