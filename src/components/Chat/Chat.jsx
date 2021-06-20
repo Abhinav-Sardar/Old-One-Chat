@@ -1,26 +1,26 @@
-import React , {useEffect , useState , useContext , useRef} from 'react'
+import React , {useEffect , useState  , useRef} from 'react' ;  
 import qs from 'qs' ; 
 import styles from './Chat.module.css' ; 
 import io from 'socket.io-client' ; 
-import ScrollToBottom from 'react-scroll-to-bottom'
-let socket = io('localhost:1919') ; 
+import ScrollToBottom from 'react-scroll-to-bottom'; 
+let socket = io('https://whispering-atoll-47602.herokuapp.com/') ; 
 const Chat = () => {
     const [name , setName] = useState('') ; 
     const [isValidURL , setIsValidURL] = useState(false) ;
     const [people , setPeople] = useState([]) ; 
     const [roomName , setRoom] = useState('') ; 
-    const [messages, setMessages] = useState([]) ;
+    const [messages, setMessages] = useState([{
+        type:"tooltip" , 
+        bg:"gold" , 
+        children:"You can share the name of this room with others for them to join!"
+    }]) ;
     const inputRef = useRef() ; 
-    useEffect(() => {
-        console.log('I')
-        //eslint-disable-next-line
-    } , [location.href])
-
+    
     useEffect(() => {
         let { name , room} = qs.parse(window.location.href , {
             ignoreQueryPrefix:true , 
         }) ; 
-        if(!name || !room || name === "" || room === ""){
+        if(!name || !room || name.trim() === "" || room.trim() === ""){
             setIsValidURL(false) ; 
         }
         else {
@@ -30,8 +30,8 @@ const Chat = () => {
             document.title = `Room - ${room}`
             socket.emit('new' , [name , room]) ; 
             socket.on('room-info' , ppl => setPeople(ppl)) ; 
-            socket.on('foreign-message' , ([msg , author]) =>{
-                setMessages(prev => [...prev , {type:"msg" , className:"IncomingMessage" , children:msg , author:author}]) ; 
+            socket.on('foreign-message' , ([msg , author , created_at]) =>{
+                setMessages(prev => [...prev , {type:"msg" , className:"IncomingMessage" , children:msg , author:author , created_at}]) ; 
             }) ; 
             socket.on('new-user', ([user , ppl]) => {
                 setPeople(ppl) ; 
@@ -48,7 +48,9 @@ const Chat = () => {
                     return [...prevMsgs , {type:"tooltip" , bg : "red" , children:`${name} has left the chat` }] ; 
                 })
             })
-        }
+        } ; 
+       
+        //eslint-disable-next-line
     } , []) ; 
     return (
         <React.Fragment>
@@ -56,6 +58,7 @@ const Chat = () => {
         ""
         :
         <div className={styles.page}>
+
             <div className={styles.info}>
                 <div className={styles.logo}>
                     One Chat
@@ -64,7 +67,8 @@ const Chat = () => {
                     Users in chat
                 </big>
                 <div className={styles.users__wrapper}>
-                    {people.length > 0 && people.map(person => (<li key = {Math.random() * Math.random() - Math.random()} className = {styles.user}>{person}</li>))}
+                    {people.length > 0 ? people.map(person => (<li key = {Math.random() * Math.random() - Math.random()} className = {styles.user}>{person}</li>))
+                    :<li className = {styles.user}>Loading...</li>}
                 </div>
             </div>
             <div className={styles.chat}>
@@ -78,13 +82,11 @@ const Chat = () => {
                     </button>
                 </div>
                     <ScrollToBottom className = {styles.main__chat}>
-                {/* <div className={styles.main__chat} ref = {msgRef}> */}
                     {messages.length > 0 && messages.map(msg => {
-                        return <Message styles = {styles} bg = {msg.bg} key = {Math.random()*Math.random()} className = {msg.className} type = {msg.type} author = {msg.author}>
+                        return <Message styles = {styles} bg = {msg.bg} key = {Math.random()*Math.random()} className = {msg.className} type = {msg.type} author = {msg.author} created_at = {msg.created_at}>
                             {msg.children}
                         </Message>
                     })}
-                {/* </div> */}
                     </ScrollToBottom>
                 <div className={styles.message__box}>
                     <form className={styles.tired} 
@@ -100,23 +102,27 @@ const Chat = () => {
                         else { 
                             let value = inputRef.current.value ; 
                             inputRef.current.value = '' ; 
-                            socket.emit('message' , [roomName , value , name]) ; 
+                            socket.emit('message' , [roomName , value , name , ReturnFormattedDate()]) ; 
                             setMessages([...messages , {
                                 type:"msg" , 
                                 className : "OutgoingMessage" ,
                                 children:value,
                                 author:name , 
+                                created_at:ReturnFormattedDate()
                             }]) ; 
                         }
 
                     }}
                     >
-                        <input type="text" className={styles.message__input} ref = {inputRef} />
-                        <button className={styles.send__msg} type = "submit"><i class="fas fa-paper-plane"></i></button>
+                        <input type="text" className={styles.message__input} ref = {inputRef} 
+                        disabled = {!people.length > 0}
+                        />
+                        <button className={styles.send__msg} type = "submit"><i className="fas fa-paper-plane"></i></button>
+
                     </form>
+                    
                 </div>
             </div>
-            
         </div>  
         }
         </React.Fragment>
@@ -128,26 +134,74 @@ const Chat = () => {
 
 export default Chat
 
-function Message({type , bg , className , styles , children , author}) {
+function Message({type , bg , className , styles , children , author , created_at}) {
     if(type === 'msg'){
         if(className === 'OutgoingMessage'){
             return<div className = {styles.msg__wrapper}>
-                <div className={styles.name}>{"You"}</div>
+                <div className={styles.name}>{"You"} - {created_at}</div>
         <div className = {styles[className]}>{children}</div>
             </div>
     }
     else {
         return <div className = {styles['msg__wrapper']}>
-        <div className={styles.name__for}>{author}</div>
+        <div className={styles.name__for}>{author} - {created_at}</div>
     <div className = {styles[className]}>{children}</div>
     </div>
     }
     }
     else {
-        return <div>
-        <div className = {styles.tooltip} style = {{backgroundColor:bg}}>
+        return <center className = {styles.tooltip} style = {{backgroundColor:bg}}>
             {children}
-        </div>
-        </div>
+        </center>
+    }
+}
+
+const ReturnFormattedDate = () => {
+    let date = new Date() ; 
+    if(String(date.getMinutes()).length === 1){
+        if(date.getHours() >= 0 && date.getHours() <= 11){
+            if(date.getHours() === 0){
+                return `12:0${date.getMinutes()} AM`
+            }
+            else {
+                return `0${date.getHours()}:0${date.getMinutes()} AM`
+            }
+        }
+        else {
+            if(date.getHours() === 12){
+                return `12:0${date.getMinutes()} PM`
+            }
+            else {
+                if(date.getHours() <= 21){
+                    return `0${date.getHours() - 12}:0${date.getMinutes()} PM`
+                }
+                else {
+                    return `${date.getHours() - 12}:0${date.getMinutes()} PM`
+                }
+            }
+        }
+    }
+    else {
+        if(date.getHours() >= 0 && date.getHours() <= 11){
+            if(date.getHours() === 0){
+                return `12:${date.getMinutes()} AM`
+            }
+            else {
+                return `0${date.getHours()}:${date.getMinutes()} AM`
+            }
+        }
+        else {
+            if(date.getHours() === 12){
+                return `12:${date.getMinutes()} PM`
+            }
+            else {
+                if(date.getHours() <= 21){
+                    return `0${date.getHours() - 12}:${date.getMinutes()} PM`
+                }
+                else {
+                    return `${date.getHours() - 12}:${date.getMinutes()} PM`
+                }
+            }
+        }
     }
 }

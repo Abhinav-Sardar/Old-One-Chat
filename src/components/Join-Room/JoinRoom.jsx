@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import styles from './CreateRoom.module.css' ; 
-const CreateRoom = () => {
+import styles from './JoinRoom.module.css' ; 
+import {Link} from 'react-router-dom'
+const JoinRoom = () => {
     document.title = "Create A Room"
     const [name , setName] = useState('') ; 
     const [room , setRoom] = useState('') ; 
@@ -21,6 +22,9 @@ const CreateRoom = () => {
     }
     return (
         <div className = {styles.page}>
+            <div className="page__info">
+                
+            </div>
             <form onSubmit = {handleSubmit} className = {styles.form}>
             <div className={styles.wrapper}>
                 <label htmlFor="">Name</label>
@@ -46,14 +50,16 @@ const CreateRoom = () => {
                 />
                 </div>
                 <div className={styles.msg}>
-                    NOTE:You will join the room if a room with same name already exists.
+                    NOTE:You will create and join the room if a room with given name doesn't exists.
                 </div>
                 <center>
-                    <button className = {styles.btn} type = {'submit'}>Create Room</button>
+                    <button className = {styles.btn}>
+                        Join Room
+                    </button>
                 </center>
             </form>
     </div>
     )
 }
 
-export default CreateRoom
+export default JoinRoom
