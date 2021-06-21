@@ -14,6 +14,12 @@ const MainPage = () => {
             <Link to = "/create"><button className={styles.btn}>Create A Room</button></Link>
             <Link to = "/join"><button className={styles.btn}>Join A Room</button></Link>
             </center>
+            <div className={styles.features}>
+                <h4 className={styles.features__header}>
+                    Features
+                </h4>
+                
+            </div>
         </div>
     )
 }

@@ -54,7 +54,17 @@ h2.logo {
     background-color: white;
     transform: scale(1.05);
 }
+.features {
+    color:white ; 
+    display:flex ; 
+    flex-direction: column;
+    margin-left: 1%;
+}
+.features .features__header {
+    /* color:black ;  */
+    font-size:4vw ; 
 
+}
 
 @keyframes jump {
     50% {
