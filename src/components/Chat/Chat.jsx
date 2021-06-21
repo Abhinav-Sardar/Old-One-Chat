@@ -70,6 +70,7 @@ const Chat = () => {
                     {people.length > 0 ? people.map(person => (<li key = {Math.random() * Math.random() - Math.random()} className = {styles.user}>{person}</li>))
                     :<li className = {styles.user}>Loading...</li>}
                 </div>
+                
             </div>
             <div className={styles.chat}>
                 <div className={styles.room__info}>

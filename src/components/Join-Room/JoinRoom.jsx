@@ -1,6 +1,10 @@
 import React, { useState } from 'react'
 import styles from './JoinRoom.module.css' ; 
-import {Link} from 'react-router-dom'
+import 'react-toastify/dist/ReactToastify.css' ; 
+import {ToastContainer , toast} from 'react-toastify'
+
+
+
 const JoinRoom = () => {
     document.title = "Create A Room"
     const [name , setName] = useState('') ; 
@@ -8,13 +12,41 @@ const JoinRoom = () => {
     const handleSubmit = (e) => {
         e.preventDefault() ; 
         if(name === '' || room === '' || name.trim() === '' || room.trim() === ''){
-            alert('Invalid user or room name') ; 
+            toast.error('Invalid username or room name!', {
+                position: "top-right",
+                autoClose: 4000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: false,
+                draggable: false,
+                progress: undefined,
+                delay:0,
+                
+            }) ; 
         }
         else if(name.length > 20) {
-            alert('Name too long! Keep a shorter name.')
+            toast.error('Name too long!', {
+                position: "top-right",
+                autoClose: 4000,
+                delay:0,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: false,
+                draggable: false,
+                progress: undefined,
+                })
         }
         else if(room.length >50){
-            alert('Room name too big!') ; 
+            toast.error('Room name too big!', {
+                position: "top-right",
+                autoClose: 4000,
+                delay:0,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: false,
+                draggable: false,
+                progress: undefined,
+                }) 
         }
         else {
             window.location.assign(`/chat?&name=${name}&room=${room}`);
@@ -53,11 +85,12 @@ const JoinRoom = () => {
                     NOTE:You will create and join the room if a room with given name doesn't exists.
                 </div>
                 <center>
-                    <button className = {styles.btn}>
+                    <button className = {styles.btn} type = "submit">
                         Join Room
                     </button>
                 </center>
             </form>
+            <ToastContainer/>
     </div>
     )
 }

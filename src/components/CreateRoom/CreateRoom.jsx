@@ -1,19 +1,50 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './CreateRoom.module.css' ; 
+import 'react-toastify/dist/ReactToastify.css' ; 
+import {ToastContainer , toast} from 'react-toastify' ; 
+import io from 'socket.io-client' ; 
+let socket = io('localhost:1919/') ; 
+
 const CreateRoom = () => {
-    document.title = "Create A Room"
     const [name , setName] = useState('') ; 
     const [room , setRoom] = useState('') ; 
     const handleSubmit = (e) => {
         e.preventDefault() ; 
         if(name === '' || room === '' || name.trim() === '' || room.trim() === ''){
-            alert('Invalid user or room name') ; 
+            toast.error('Invalid username or room name!', {
+                position: "top-right",
+                autoClose: 4000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: false,
+                draggable: false,
+                progress: undefined,
+                delay:0,
+            })
         }
         else if(name.length > 20) {
-            alert('Name too long! Keep a shorter name.')
+            toast.error('Name too long!', {
+                position: "top-right",
+                autoClose: 4000,
+                delay:0,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: false,
+                draggable: false,
+                progress: undefined,
+                })
         }
         else if(room.length >50){
-            alert('Room name too big!') ; 
+            toast.error('Room name too big!', {
+                position: "top-right",
+                autoClose: 4000,
+                delay:0,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: false,
+                draggable: false,
+                progress: undefined,
+                }) 
         }
         else {
             window.location.assign(`/chat?&name=${name}&room=${room}`);
@@ -52,6 +83,7 @@ const CreateRoom = () => {
                     <button className = {styles.btn} type = {'submit'}>Create Room</button>
                 </center>
             </form>
+            <ToastContainer/>
     </div>
     )
 }
