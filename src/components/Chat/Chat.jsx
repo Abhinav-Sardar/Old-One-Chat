@@ -3,7 +3,8 @@ import qs from 'qs' ;
 import styles from './Chat.module.css' ; 
 import io from 'socket.io-client' ; 
 import ScrollToBottom from 'react-scroll-to-bottom'; 
-let socket = io('https://whispering-atoll-47602.herokuapp.com/') ; 
+// let socket = io('https://whispering-atoll-47602.herokuapp.com/') ; 
+let socket = io('http://localhost:1919/') ; 
 const Chat = () => {
     const [name , setName] = useState('') ; 
     const [isValidURL , setIsValidURL] = useState(false) ;

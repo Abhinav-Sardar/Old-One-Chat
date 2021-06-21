@@ -47,7 +47,29 @@ const CreateRoom = () => {
                 }) 
         }
         else {
-            window.location.assign(`/chat?&name=${name}&room=${room}`);
+            socket.emit('req-info') ; 
+            socket.on('res-info' , rooms => {
+                console.log(rooms) ; 
+                let found = rooms.find(currentRooms => currentRooms[0] === room) ;
+                if(found !== undefined){
+                    console.log('FOUND!')
+                    toast.error('A room with same name already exists!', {
+                        position: "top-right",
+                        autoClose: 3000,
+                        delay:0,
+                        hideProgressBar: false,
+                        closeOnClick: false,
+                        pauseOnHover: false,
+                        draggable: false,
+                        progress: undefined,
+                        }) 
+                        socket.removeAllListeners("res-info");
+                }
+                else {
+                    window.location.assign(`/chat?&name=${name}&room=${room}`);
+                    socket.disconnect() ; 
+                }
+            })
         }
     }
     return (
