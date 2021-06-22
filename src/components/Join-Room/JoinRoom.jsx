@@ -3,7 +3,7 @@ import styles from './JoinRoom.module.css' ;
 import 'react-toastify/dist/ReactToastify.css' ; 
 import {ToastContainer , toast} from 'react-toastify'
 import io from 'socket.io-client' ; 
-const socket = io('http://localhost:1919/') ; 
+let socket = io('https://whispering-atoll-47602.herokuapp.com/') ; 
 
 const JoinRoom = () => {
     document.title = "Create A Room"

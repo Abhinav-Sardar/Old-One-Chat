@@ -2,9 +2,13 @@ import React , {useEffect , useState  , useRef} from 'react' ;
 import qs from 'qs' ; 
 import styles from './Chat.module.css' ; 
 import io from 'socket.io-client' ; 
+import './Picker.css'
+import Picker from 'react-emojipicker' ; 
+
 import ScrollToBottom from 'react-scroll-to-bottom'; 
-// let socket = io('https://whispering-atoll-47602.herokuapp.com/') ; 
-let socket = io('http://localhost:1919/') ; 
+let socket = io('https://whispering-atoll-47602.herokuapp.com/') ;
+ 
+// let socket = io('http://localhost:1919/') ; 
 const Chat = () => {
     const [name , setName] = useState('') ; 
     const [isValidURL , setIsValidURL] = useState(false) ;
@@ -116,6 +120,7 @@ const Chat = () => {
 
                     }}
                     >
+                        
                         <input type="text" className={styles.message__input} ref = {inputRef} 
                         disabled = {!people.length > 0}
                         />
@@ -125,6 +130,16 @@ const Chat = () => {
                     
                 </div>
             </div>
+            <div className={styles.hero_wr} style = {{display:'block'}}>
+                <center>
+                    Emojis
+                </center>
+            <Picker onEmojiSelected = {(e => {
+                inputRef.current.value += e.unicode ; 
+            })} visible = {true}/>
+            </div>
+          
+            {/* <Picker/> */}
         </div>  
         }
         </React.Fragment>

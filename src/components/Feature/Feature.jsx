@@ -1,12 +1,9 @@
-
+import styles from './Feature.module.css' ; 
 
 const Feature = ({icon}) => {
-    
-    return (
-        <div>
-            
-        </div>
-    )
+    if(icon === 'person-add'){
+
+    }
 }
 
 export default Feature

@@ -24,7 +24,7 @@
 }
 .info {
     height:100vh ; 
-    width:15vw ; 
+    flex:1.5 ; 
     display:flex ; 
     flex-direction: column;
     /* justify-content: center; */
@@ -70,7 +70,7 @@ big {
     border-bottom: 1px solid white;
 }
 .chat {
-    width:85vw ; 
+    width:60vw ; 
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -244,4 +244,9 @@ button.leave:hover {
     /* margin-left: 8%; */
     text-align: right;
     padding-right: 2%;
+}
+
+.hero_wr {
+    height:100% ; 
+    flex:1 ; 
 }

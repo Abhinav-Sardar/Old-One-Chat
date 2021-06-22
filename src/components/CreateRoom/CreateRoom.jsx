@@ -3,7 +3,7 @@ import styles from './CreateRoom.module.css' ;
 import 'react-toastify/dist/ReactToastify.css' ; 
 import {ToastContainer , toast} from 'react-toastify' ; 
 import io from 'socket.io-client' ; 
-let socket = io('localhost:1919/') ; 
+let socket = io('https://whispering-atoll-47602.herokuapp.com/') ; 
 
 const CreateRoom = () => {
     const [name , setName] = useState('') ; 
