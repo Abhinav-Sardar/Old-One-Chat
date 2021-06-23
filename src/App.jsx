@@ -10,8 +10,6 @@ const App = () => {
         <div className = "app">
             <Router>
                 <Switch>
-                    
-
                     <Route path = "/" exact>
                         <MainPage/>
                     </Route>
