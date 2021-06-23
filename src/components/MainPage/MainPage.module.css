@@ -1,77 +1,77 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap');
-:root{
-    --accent-color:rgb(187, 20, 202);
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap");
+:root {
+  --accent-color: rgb(187, 20, 202);
 
-    --select-color:rgb(54, 54, 172) ; 
-}*{
-    padding:0 ; 
-    margin: 0;
+  --select-color: rgb(54, 54, 172);
+}
+* {
+  padding: 0;
+  margin: 0;
 }
 *::selection {
-    color:white ; 
-    background-color: var(--select-color);
+  color: white;
+  background-color: var(--select-color);
 }
 .page {
-    height:100vh; 
-    width:100vw ; 
-    background:linear-gradient(45deg , rgb(190, 63, 190) , white) ; 
-    overflow-x: hidden;
+  height: 100vh;
+  width: 100vw;
+  background: linear-gradient(45deg, rgb(190, 63, 190), white);
+  overflow-x: hidden;
 }
 
-i {
-    font-size:30vmin ; 
-    color:var(--accent-color);
-    position:relative ; 
-    animation: jump 3s infinite;
-    /* animation-timing-function: ease-in-out;  */
-    margin:3vmin 0 ; 
+.icon__Wrapper > i {
+  font-size: 30vmin;
+  color: var(--accent-color);
+  position: relative;
+  animation: jump 3s infinite;
+  /* animation-timing-function: ease-in-out;  */
+  margin: 3vmin 0;
 }
 h2.logo {
-    font-size:12vmin ; 
-    color:var(--accent-color) ; 
-    font-family:"Poppins" , sans-serif;
+  font-size: 12vmin;
+  color: var(--accent-color);
+  font-family: "Poppins", sans-serif;
 }
 .content {
-    color:var(--accent-color) ; 
-    font-family: 'Poppins', sans-serif;
-    font-size:5vmin ; 
-    padding:5vh 0 ; 
+  color: var(--accent-color);
+  font-family: "Poppins", sans-serif;
+  font-size: 5vmin;
+  padding: 5vh 0;
 }
 .btn {
-    color:white ; 
-    background-color: var(--accent-color);
-    border:0 ; 
-    padding:4vh 3.5vw ; 
-    margin:0 1vw ; 
-    border-radius:10px ; 
-    font-size:3.5vmin ; 
-    transition: 400ms ease-in;
-    font-family: 'Montserrat', sans-serif;
+  color: white;
+  background-color: var(--accent-color);
+  border: 0;
+  padding: 4vh 3.5vw;
+  margin: 0 1vw;
+  border-radius: 10px;
+  font-size: 3.5vmin;
+  transition: 400ms ease-in;
+  font-family: "Montserrat", sans-serif;
 }
-.btn:hover{
-    color:var(--accent-color) ; 
-    background-color: white;
-    transform: scale(1.05);
+.btn:hover {
+  color: var(--accent-color);
+  background-color: white;
+  transform: scale(1.05);
 }
 .features {
-    color:white ; 
-    display:flex ; 
-    flex-direction: column;
-    margin-left: 1%;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  margin-left: 1%;
 }
 .features .features__header {
-    /* color:black ;  */
-    font-size:4vw ; 
-
+  /* color:black ;  */
+  font-size: 4vw;
 }
 
 @keyframes jump {
-    50% {
-        transform:translateY(-1vh)
-    }
+  50% {
+    transform: translateY(-1vh);
+  }
 
-    100%{
-        transform:translateY(0) ; 
-    }
+  100% {
+    transform: translateY(0);
+  }
 }
