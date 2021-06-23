@@ -6,7 +6,7 @@ import io from "socket.io-client";
 let socket = io("https://whispering-atoll-47602.herokuapp.com/");
 
 const JoinRoom = () => {
-	document.title = "Create A Room";
+	document.title = "Join A Room";
 	const [name, setName] = useState("");
 	const [room, setRoom] = useState("");
 	const handleSubmit = (e) => {
