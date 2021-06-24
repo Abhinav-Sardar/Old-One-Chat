@@ -109,9 +109,9 @@ const CreateRoom = () => {
 				</div>
 				<center>
 					<button className={styles.btn} type='submit'>
-						Join Room
+						Create Room
 					</button>
-				</center>
+				</center> 
 			</form>
 			<ToastContainer />
 		</div>

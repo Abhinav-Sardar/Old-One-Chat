@@ -1,4 +1,3 @@
-// eslint-disable-next-line
 import React, { useEffect } from "react";
 import qs from "qs";
 import { Link } from "react-router-dom";

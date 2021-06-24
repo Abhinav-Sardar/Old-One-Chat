@@ -4,6 +4,8 @@ import styles from "./Chat.module.css";
 import io from "socket.io-client";
 import "./Picker.css";
 import Picker from "react-emojipicker";
+import MessageSound from "./Message.wav";
+import { ToastContainer, toast } from "react-toastify";
 import ScrollToBottom from "react-scroll-to-bottom";
 let socket = io("https://whispering-atoll-47602.herokuapp.com/");
 const Chat = () => {
@@ -11,6 +13,7 @@ const Chat = () => {
 	const [isValidURL, setIsValidURL] = useState(false);
 	const [people, setPeople] = useState([]);
 	const [roomName, setRoom] = useState("");
+	const sendSound = new Audio(MessageSound);
 	const [emojiStyle, setEmojiStyles] = useState("none");
 	const [messages, setMessages] = useState([
 		{
@@ -73,8 +76,12 @@ const Chat = () => {
 				});
 			});
 		}
-		console.log(getRandomNumberKey());
 	}, []);
+	useEffect(() => {
+		if (messages.length > 1 && messages[messages.length - 1].type === "msg") {
+			sendSound.play();
+		}
+	}, [messages]);
 	return (
 		<React.Fragment>
 			{isValidURL === false ? (
@@ -90,10 +97,7 @@ const Chat = () => {
 						<div className={styles.users__wrapper}>
 							{people.length > 0 ? (
 								people.map((person) => (
-									<li
-										key={Math.random() * Math.random() - Math.random()}
-										className={styles.user}
-									>
+									<li key={getRandomNumberKey()} className={styles.user}>
 										{person}
 									</li>
 								))
@@ -125,7 +129,7 @@ const Chat = () => {
 										<Message
 											styles={styles}
 											bg={msg.bg}
-											key={Math.random() * Math.random() - Math.random()}
+											key={getRandomNumberKey()}
 											className={msg.className}
 											type={msg.type}
 											author={msg.author}
@@ -145,8 +149,27 @@ const Chat = () => {
 										inputRef.current.value === "" ||
 										inputRef.current.value.trim() === ""
 									) {
+										toast.error("Invalid message!", {
+											position: "top-right",
+											autoClose: 4000,
+											hideProgressBar: false,
+											closeOnClick: false,
+											pauseOnHover: false,
+											draggable: false,
+											progress: undefined,
+											delay: 0,
+										});
 									} else if (inputRef.current.value.length > 1000) {
-										alert("Message length too big!");
+										toast.error("Message length too big!", {
+											position: "top-right",
+											autoClose: 4000,
+											hideProgressBar: false,
+											closeOnClick: false,
+											pauseOnHover: false,
+											draggable: false,
+											progress: undefined,
+											delay: 0,
+										});
 									} else {
 										let value = inputRef.current.value;
 										inputRef.current.value = "";
@@ -208,6 +231,7 @@ const Chat = () => {
 							visible={true}
 						/>
 					</div>
+					<ToastContainer />
 				</div>
 			)}
 		</React.Fragment>
@@ -297,33 +321,12 @@ const ReturnFormattedDate = () => {
 
 function getRandomNumberKey() {
 	let sum = 0;
-	for (
-		let a = 0;
-		a < Math.floor(Math.random() * Math.floor(Math.random() * 90));
-		a++
-	) {
-		sum += a;
-	}
-	for (
-		let a = 0;
-		a < Math.floor(Math.random() * Math.floor(Math.random() * 90));
-		a++
-	) {
-		sum /= a;
-	}
-	for (
-		let a = 0;
-		a < Math.floor(Math.random() * Math.floor(Math.random() * 90));
-		a++
-	) {
-		sum -= a;
-	}
-	for (
-		let a = 0;
-		a < Math.floor(Math.random() * Math.floor(Math.random() * 90));
-		a++
-	) {
-		sum *= a;
-	}
+	sum =
+		Math.random() -
+		((((Math.random() * Math.random()) / Math.random()) * 923) / 90032) *
+			2382398 -
+		30923 -
+		Math.random() * 239023 +
+		Math.random();
 	return sum;
 }
