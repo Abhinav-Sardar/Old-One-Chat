@@ -3,7 +3,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap");
 
 :root {
-	--accent-color: rgb(187, 20, 202);
+	--accent-color: #bd14cc;
 	--select-color: rgb(54, 54, 172);
 	--leave-btn-color: red;
 }
@@ -155,7 +155,6 @@ button.leave:hover {
 	width: 70%;
 	padding: 2vh 0;
 	font-size: 1.5vw;
-	margin: 0 1vw;
 }
 .message__input:focus {
 	border: 2px solid var(--accent-color);
@@ -167,6 +166,7 @@ button.leave:hover {
 	padding: 2.5vh 0;
 	background-color: blue;
 	border: 0;
+	margin-right: 2vw;
 }
 .send__msg:active {
 	transform: scale(0.9);
@@ -174,7 +174,7 @@ button.leave:hover {
 .message__box {
 	width: 100%;
 	display: flex;
-	justify-content: center;
+	justify-content: flex-start;
 	align-items: center;
 	height: 20vh;
 	border: 1px solid black;
@@ -184,7 +184,7 @@ button.leave:hover {
 	height: 100%;
 	width: 100%;
 	display: flex;
-	justify-content: center;
+	justify-content: space-between;
 	align-items: center;
 }
 .send__msg > i {
@@ -232,12 +232,20 @@ button.leave:hover {
 	font-family: "Poppins", sans-serif;
 }
 
-.smiley__wrapper {
-	margin-left: 2vw;
+.actions__wrapper {
+	margin-left: 1vw;
 }
-.smiley__wrapper > i {
+.actions__wrapper > i {
 	font-size: 3vw;
+	margin: 0 0.2vw;
 }
-.smiley__wrapper:active {
-	border: 1px solid black;
+
+input[type="file"] {
+	display: none;
+}
+.upload {
+	color: black;
+	font-size: 16px;
+	margin: 0;
+	padding: 0;
 }

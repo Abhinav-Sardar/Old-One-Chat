@@ -9,12 +9,14 @@ import { ToastContainer, toast } from "react-toastify";
 import ScrollToBottom from "react-scroll-to-bottom";
 let socket = io("https://whispering-atoll-47602.herokuapp.com/");
 const Chat = () => {
+	const videoRef = useRef(null);
 	const [name, setName] = useState("");
 	const [isValidURL, setIsValidURL] = useState(false);
 	const [people, setPeople] = useState([]);
 	const [roomName, setRoom] = useState("");
 	const sendSound = new Audio(MessageSound);
 	const [emojiStyle, setEmojiStyles] = useState("none");
+	const imgRef = useRef(null);
 	const [messages, setMessages] = useState([
 		{
 			type: "tooltip",
@@ -25,6 +27,11 @@ const Chat = () => {
 	]);
 	const inputRef = useRef();
 
+	const handleNewImage = () => {
+		const files = imgRef.current.files;
+		console.log(files);
+	};
+	const handleNewVideo = () => {};
 	useEffect(() => {
 		let { name, room } = qs.parse(window.location.href, {
 			ignoreQueryPrefix: true,
@@ -193,19 +200,42 @@ const Chat = () => {
 									}
 								}}
 							>
-								<div className={styles.smiley__wrapper}>
+								<div className={styles.actions__wrapper}>
 									<i
 										className={
 											emojiStyle === "none" ? "far fa-smile" : "fas fa-times"
 										}
 										style={{
-											color: emojiStyle === "none" ? "purple" : "red",
+											color: emojiStyle === "none" ? "#bd14cc" : "red",
 										}}
 										onClick={() =>
 											setEmojiStyles(emojiStyle === "block" ? "none" : "block")
 										}
 									/>
+									<i
+										className='fas fa-images'
+										style={{ color: "#bd14cc" }}
+										onClick={() => imgRef.current.click()}
+									></i>
+									<i
+										className='far fa-file-video'
+										style={{ color: "#bd14cc" }}
+										onClick={() => videoRef.current.click()}
+									></i>
 								</div>
+								<input
+									type='file'
+									accept='image/*'
+									name='file'
+									ref={imgRef}
+									onChange={handleNewImage}
+								/>
+								<input
+									type='file'
+									accept='video/*'
+									ref={videoRef}
+									onChange={handleNewVideo}
+								/>
 								<input
 									type='text'
 									className={styles.message__input}
@@ -213,7 +243,6 @@ const Chat = () => {
 									autoFocus={true}
 									disabled={!people.length > 0}
 								/>
-
 								<button className={styles.send__msg} type='submit'>
 									<i className='fas fa-paper-plane'></i>
 								</button>
