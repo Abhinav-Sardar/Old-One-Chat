@@ -6,31 +6,31 @@ import Chat from "./components/Chat/Chat";
 import CreateRoom from "./components/CreateRoom/CreateRoom";
 import JoinRoom from "./components/Join-Room/JoinRoom";
 const App = () => {
-	return (
-		<div className='app'>
-			<Router>
-				<Switch>
-					<Route path='/' exact>
-						<MainPage />
-					</Route>
+  return (
+    <div className="app">
+      <Router>
+        <Switch>
+          <Route path="/" exact>
+            <MainPage />
+          </Route>
 
-					<Route path='/create'>
-						<CreateRoom />
-					</Route>
+          <Route path="/create">
+            <CreateRoom />
+          </Route>
 
-					<Route path='/chat'>
-						<Chat />
-					</Route>
-					<Route path='/join'>
-						<JoinRoom />
-					</Route>
-					<Route path='*'>
-						<NotfoundPage message='404! We couldnt find the page you were looking for.' />
-					</Route>
-				</Switch>
-			</Router>
-		</div>
-	);
+          <Route path="/chat">
+            <Chat />
+          </Route>
+          <Route path="/join">
+            <JoinRoom />
+          </Route>
+          <Route path="*">
+            <NotfoundPage message="404! We couldnt find the page you were looking for." />
+          </Route>
+        </Switch>
+      </Router>
+    </div>
+  );
 };
 
 export default App;

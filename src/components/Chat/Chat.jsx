@@ -224,16 +224,6 @@ const Chat = () => {
                       setEmojiStyles(emojiStyle === "block" ? "none" : "block")
                     }
                   />
-                  <i
-                    className="fas fa-images"
-                    style={{ color: "#bd14cc" }}
-                    onClick={() => imgRef.current.click()}
-                  ></i>
-                  <i
-                    className="far fa-file-video"
-                    style={{ color: "#bd14cc" }}
-                    onClick={() => videoRef.current.click()}
-                  ></i>
                 </div>
                 <input
                   type="file"

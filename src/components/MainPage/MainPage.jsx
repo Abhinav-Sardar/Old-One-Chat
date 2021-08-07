@@ -10,7 +10,6 @@ const MainPage = () => {
   const [color, setColor] = useState("");
   const crtRef = useRef();
   const joinRef = useRef();
-  const custRef = useRef();
   useEffect(() => {
     setColor(setAccentColor());
     console.log(setAccentColor());
@@ -22,7 +21,7 @@ const MainPage = () => {
   });
 
   const setEvent = () => {
-    [crtRef, joinRef, custRef].forEach((el) => {
+    [crtRef, joinRef].forEach((el) => {
       el.current.onmouseenter = () => {
         el.current.style.color = color;
         el.current.style.backgroundColor = "white";
@@ -38,7 +37,7 @@ const MainPage = () => {
       <div className={styles.page}>
         <center>
           <div className={styles.icon__Wrapper}>
-            <i className="fas fa-comment-alt" id="icon"></i>
+            <i class="fas fa-comments"></i>
           </div>
           <br />
           <h2 className={styles.logo}>One-Chat</h2>
@@ -68,18 +67,6 @@ const MainPage = () => {
               }}
             >
               Join A Room
-            </button>
-          </Link>
-          <Link to="/create">
-            <button
-              className={styles.btn}
-              ref={custRef}
-              style={{
-                color: "white",
-                backgroundColor: color,
-              }}
-            >
-              Customize
             </button>
           </Link>
         </center>
