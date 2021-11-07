@@ -27,19 +27,8 @@ const Chat = () => {
   ]);
   const inputRef = useRef();
 
-  const handleNewImage = () => {
-    const file = imgRef.current.files[0];
-    const reader = new FileReader();
-    reader.onload = () => {
-      console.log(reader.result);
-      const RES = prompt(`Are you sure you want send ${file.name}`);
-    };
-    reader.readAsDataURL(file);
-  };
-  const handleNewVideo = () => {
-    const files = videoRef.current.files;
-    alert(typeof files);
-  };
+  const handleNewImage = () => {};
+  const handleNewVideo = () => {};
   useEffect(() => {
     let { name, room } = qs.parse(window.location.href, {
       ignoreQueryPrefix: true,
